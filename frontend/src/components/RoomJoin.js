@@ -5,7 +5,8 @@ export default class RoomJoinPage extends Component {
     super(props);
   }
 
+
   render() {
-    return <p>This is the room page</p>;
+    return <p>JoinPage</p>;
   }
 }
