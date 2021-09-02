@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { TextField, Button, Grid, Typography } from "@material-ui/core";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default class RoomJoinPage extends Component {
   constructor(props) {
@@ -13,7 +13,6 @@ export default class RoomJoinPage extends Component {
     this.roomButtonPressed = this.roomButtonPressed.bind(this);
   }
 
-
   render() {
     return (
       <Grid container spacing={1}>
@@ -24,20 +23,28 @@ export default class RoomJoinPage extends Component {
         </Grid>
         <Grid item xs={12} align="center">
           <TextField
-          error={this.state.error}
-          label="Code"
-          placeholder="Enter a room Code"
-          value={this.state.codeRoom}
-          helperText={this.state.error}
-          variant="outlined"
-          onChange={this.handleTexFieldChange}
+            error={this.state.error}
+            label="Code"
+            placeholder="Enter a room Code"
+            value={this.state.codeRoom}
+            helperText={this.state.error}
+            variant="outlined"
+            onChange={this.handleTexFieldChange}
           />
         </Grid>
         <Grid item xs={12} align="center">
-          <Button variant="contained" color="secondary" onClick={this.roomButtonPressed}>Join</Button>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={this.roomButtonPressed}
+          >
+            Join
+          </Button>
         </Grid>
         <Grid item xs={12} align="center">
-          <Button variant="contained" color="primary" to="/" component={Link}>Back</Button>
+          <Button variant="contained" color="primary" to="/" component={Link}>
+            Back
+          </Button>
         </Grid>
       </Grid>
     );
@@ -45,26 +52,28 @@ export default class RoomJoinPage extends Component {
 
   handleTexFieldChange(e) {
     this.setState({
-      roomCode: e.target.value
+      roomCode: e.target.value,
     });
   }
 
   roomButtonPressed() {
     const requestOptions = {
-      method: 'Post',
-      headers: {"Content-Type": "application/json"},
+      method: "Post",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        code: this.state.roomCode
-      })
+        code: this.state.roomCode,
+      }),
     };
-    fetch('/api/join-room', requestOptions).then((response) => {
-      if (response.ok) {
-        this.props.history.push(`/room/${this.state.roomCode}`)
-      } else {
-        this.setState({error: "Room not found."})
-      }
-    }).catch((error) => {
-      console.log(error);
-    });
+    fetch("/api/join-room", requestOptions)
+      .then((response) => {
+        if (response.ok) {
+          this.props.history.push(`/room/${this.state.roomCode}`);
+        } else {
+          this.setState({ error: "Room not found." });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 }
